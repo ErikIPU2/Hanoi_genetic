@@ -18,3 +18,15 @@ class Individual:
             while selN == toN:
                 toN = randint(0, 2)
             self._dna.append({"sel": selN, "to": toN})
+
+    def set_movements(self):
+        self._tower.set_movements(self._dna)
+
+    def get_fitness(self):
+        tower = self._tower.tower[2]
+        fitness_cont = 0
+        percent = 100 / len(tower)
+        for i in tower:
+            if i != 0:
+                fitness_cont += 1
+        return percent * fitness_cont

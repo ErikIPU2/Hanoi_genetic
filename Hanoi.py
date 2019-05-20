@@ -15,7 +15,7 @@ class Hanoi:
         for mov in movements:
             if not self._move(mov['sel'], mov['to']):
                 errCont += 1
-        print(str(errCont) + " Invalid movements")
+        # print(str(errCont) + " Invalid movements")
 
     def __gerate(self):
         temp = 1
