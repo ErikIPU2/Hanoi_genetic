@@ -1,14 +1,11 @@
 class Hanoi:
 
-    tower = [[], [], []]
-    __tower_len = 0
-
-    tower_pointers = [[], [], []]
-
     def __init__(self, len):
         if len <= 0:
             raise Exception("Len is less than 1")
         self.__tower_len = len
+        self.tower = [[], [], []]
+        self.tower_pointers = [[], [], []]
         self.__gerate()
 
     def set_movements(self, movements):
