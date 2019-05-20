@@ -1,14 +1,16 @@
 from genetic.Population import Population
 
-generation_cont = 0
+generation_cont = 1
 
 if __name__ == "__main__":
-    generation = Population(100, 10, 1023, True)
+    generation = Population(500, 6, 1000, initialize=True)
     generation.find_better()
-    print(generation.father_fitness, generation.mother_fitness)
-    generation = generation.create_new_population_dna()
-    generation.find_better()
-    print(generation.father_fitness, generation.mother_fitness)
-    generation = generation.create_new_population_dna()
-    generation.find_better()
-    print(generation.father_fitness, generation.mother_fitness)
+
+    while generation.father_fitness < 100:
+        generation_cont += 1
+        generation = generation.create_new_population_dna()
+        generation.find_better()
+        print(generation_cont, generation.father_fitness)
+
+    print(generation.father._dna)
+    print(generation.father._tower.get_graphic(2))

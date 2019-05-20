@@ -1,8 +1,8 @@
 from .Individual import Individual
-from random import randint
+from random import randint, random
 
 class Population:
-    def __init__(self, population_len, tower_len, dna_len, initialize=False):
+    def __init__(self, population_len, tower_len, dna_len, mutation_rate=0.0001, initialize=False):
         self._individuals = []
         self.tower_len = tower_len
         self.dna_len = dna_len
@@ -12,6 +12,8 @@ class Population:
 
         self.father_fitness = 0
         self.mother_fitness = 0
+
+        self.mutation_rate = mutation_rate
 
         if population_len <= 0:
             raise Exception("Population len need to be greater than 0")
@@ -45,10 +47,23 @@ class Population:
             for j in range(new_population.dna_len):
                 crossRate = randint(0, 1)
                 gene = None
+                parent = ""
                 if (crossRate == 1):
                     gene = self.mother._dna[j]
+                    parent = "M"
                 else:
                     gene = self.father._dna[j]
+                    parent = "F"
+
                 new_population._individuals[i]._dna.append(gene)
+                new_population._individuals[i]._dna[j]["parent"] = parent
+                if random() < self.mutation_rate:
+                    selN = randint(0, 2)
+                    toN = randint(0, 2)
+                    while selN == toN:
+                        toN = randint(0, 2)
+                    # print("mutation on " + str(j), selN, toN)
+                    new_population._individuals[i]._dna[j]["sel"] = selN
+                    new_population._individuals[i]._dna[j]["to"] = toN
         new_population.set_indiviadual_movements()
         return new_population
