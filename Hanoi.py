@@ -13,6 +13,12 @@ class Hanoi:
             raise Exception("movements len need to be great as 0")
         errCont = 0
         for mov in movements:
+            zerocont = 0
+            for i in self.tower[2]:
+                if i == 0:
+                    zerocont += 1
+            if zerocont == 0:
+                break
             if not self._move(mov['sel'], mov['to']):
                 errCont += 1
         # print(str(errCont) + " Invalid movements")

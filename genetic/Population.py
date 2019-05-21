@@ -2,7 +2,7 @@ from .Individual import Individual
 from random import randint, random
 
 class Population:
-    def __init__(self, population_len, tower_len, dna_len, mutation_rate=0.0001, initialize=False):
+    def __init__(self, population_len, tower_len, dna_len, mutation_rate=0.00001, initialize=False):
         self._individuals = []
         self.tower_len = tower_len
         self.dna_len = dna_len
@@ -44,6 +44,33 @@ class Population:
         new_population = Population(self.population_len, self.tower_len, self.dna_len)
         for i in range(new_population.population_len):
             new_population._individuals.append(Individual(new_population.tower_len, new_population.dna_len))
+            # pp = randint(1, new_population.dna_len-1)
+            # genProp = []
+            # j = 0
+            # for j in range(0, pp):
+            #     genProp.append(self.father._dna[j])
+            #     if random() < self.mutation_rate:
+            #         selN = randint(0, 2)
+            #         toN = randint(0, 2)
+            #         while selN == toN:
+            #             toN = randint(0, 2)
+            #         # print("mutation on "+ str(i) +":"+ str(j), selN, toN, end=" - ")
+            #         genProp[j]["sel"] = selN
+            #         genProp[j]["to"] = toN
+            # for k in range(j+1, new_population.dna_len):
+            #     genProp.append(self.mother._dna[k])
+            #     genProp.append(self.father._dna[j])
+            #     if random() < self.mutation_rate:
+            #         selN = randint(0, 2)
+            #         toN = randint(0, 2)
+            #         while selN == toN:
+            #             toN = randint(0, 2)
+            #         # print("mutation on "+ str(i) +":"+ str(j), selN, toN, end=" - ")
+            #         genProp[k]["sel"] = selN
+            #         genProp[k]["to"] = toN
+            #
+            # new_population._individuals[i]._dna = genProp
+
             for j in range(new_population.dna_len):
                 crossRate = randint(0, 1)
                 gene = None
@@ -57,12 +84,13 @@ class Population:
 
                 new_population._individuals[i]._dna.append(gene)
                 new_population._individuals[i]._dna[j]["parent"] = parent
+
                 if random() < self.mutation_rate:
                     selN = randint(0, 2)
                     toN = randint(0, 2)
                     while selN == toN:
                         toN = randint(0, 2)
-                    # print("mutation on " + str(j), selN, toN)
+                    # print("mutation on "+ str(i) +":"+ str(j), selN, toN, end=" - ")
                     new_population._individuals[i]._dna[j]["sel"] = selN
                     new_population._individuals[i]._dna[j]["to"] = toN
         new_population.set_indiviadual_movements()

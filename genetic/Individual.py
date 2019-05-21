@@ -26,7 +26,13 @@ class Individual:
         tower = self._tower.tower[2]
         fitness_cont = 0
         percent = 100 / len(tower)
-        for i in tower:
-            if i != 0:
+        towerCont = 2*len(self._tower.tower[2]) - 1
+
+        for i in range(len(self._tower.tower[2])-1, -1, -1):
+            if self._tower.tower[2][i] == towerCont:
                 fitness_cont += 1
+                towerCont -= 2
+            else:
+                break
+
         return percent * fitness_cont
